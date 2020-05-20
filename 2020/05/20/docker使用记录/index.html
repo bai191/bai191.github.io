@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="0x00:安装环境 vmware15.5 kali linux 2020.4  我这里用的apt源是华为镜像的。 0x01:安装过程输入下列命令更新下apt软件包 1$ sudo apt-get update  输入下面命令安装： 1$ sudo apt-get install docker.io  输入下面命令启动docker: 1$ sudo systemctl start docker.se">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker使用记录">
+<meta property="og:url" content="http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="bai191">
+<meta property="og:description" content="0x00:安装环境 vmware15.5 kali linux 2020.4  我这里用的apt源是华为镜像的。 0x01:安装过程输入下列命令更新下apt软件包 1$ sudo apt-get update  输入下面命令安装： 1$ sudo apt-get install docker.io  输入下面命令启动docker: 1$ sudo systemctl start docker.se">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-20T14:23:34.000Z">
+<meta property="article:modified_time" content="2020-05-20T14:23:34.000Z">
+<meta property="article:author" content="bai191">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>docker使用记录</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">主页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/tools/">工具</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/05/19/buuctf%E9%97%AF%E5%85%B3%E8%AE%B0%E5%BD%95-web%E7%AF%87/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&text=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&is_video=false&description=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=docker使用记录&body=Check out this article: http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&name=docker使用记录&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&t=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-安装环境"><span class="toc-number">1.</span> <span class="toc-text">0x00:安装环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-安装过程"><span class="toc-number">2.</span> <span class="toc-text">0x01:安装过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-安装过程出现的一些故障"><span class="toc-number">3.</span> <span class="toc-text">0x02:安装过程出现的一些故障</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-更换docker源"><span class="toc-number">4.</span> <span class="toc-text">0x03:更换docker源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-参考链接"><span class="toc-number">5.</span> <span class="toc-text">0x04:参考链接</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        docker使用记录
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">bai191</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-05-20T14:23:34.000Z" itemprop="datePublished">2020-05-20</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/docker/">docker</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/docker/" rel="tag">docker</a>, <a class="tag-link" href="/tags/linux/" rel="tag">linux</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="0x00-安装环境"><a href="#0x00-安装环境" class="headerlink" title="0x00:安装环境"></a>0x00:安装环境</h2><ol>
+<li>vmware15.5</li>
+<li>kali linux 2020.4</li>
+</ol>
+<p>我这里用的apt源是华为镜像的。</p>
+<h2 id="0x01-安装过程"><a href="#0x01-安装过程" class="headerlink" title="0x01:安装过程"></a>0x01:安装过程</h2><p>输入下列命令更新下apt软件包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<p>输入下面命令安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install docker.io</span><br></pre></td></tr></table></figure>
+
+<p>输入下面命令启动docker:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start docker.service</span><br></pre></td></tr></table></figure>
+
+<p>启动后输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker version</span><br></pre></td></tr></table></figure>
+
+<p>检查客户端后服务端是否启动</p>
+<h2 id="0x02-安装过程出现的一些故障"><a href="#0x02-安装过程出现的一些故障" class="headerlink" title="0x02:安装过程出现的一些故障"></a>0x02:安装过程出现的一些故障</h2><p>服务端有时候没启动报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Got permission denied while trying to connect to the Docker daemon socket at unix:&#x2F;&#x2F;&#x2F;var&#x2F;run&#x2F;docker.sock: Get &quot;http:&#x2F;&#x2F;%2Fvar%2Frun%2Fdocker.sock&#x2F;v1.40&#x2F;containers&#x2F;json&quot;: dial unix &#x2F;var&#x2F;run&#x2F;docker.sock: connect: permission denied</span><br></pre></td></tr></table></figure>
+
+<p>这时候去网上查看原来是权限不够的原因，所以把用户加入docker:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo groupadd docker #添加docker用户组</span><br><span class="line">$ sudo gpasswd -a $USER docker #将登陆用户加入到docker用户组中</span><br><span class="line">$ newgrp docker</span><br><span class="line">$ docker version #服务端已经启动</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x03-更换docker源"><a href="#0x03-更换docker源" class="headerlink" title="0x03:更换docker源"></a>0x03:更换docker源</h2><p>创建或修改 /etc/docker/daemon.json 文件，修改为如下形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># vim &#x2F;etc&#x2F;docker&#x2F;daemon.json</span><br><span class="line">&#123;</span><br><span class="line">    &quot;registry-mirrors&quot;: [&quot;http:&#x2F;&#x2F;hub-mirror.c.163.com&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输入命令重新启动下就行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl restart docker.service</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x04-参考链接"><a href="#0x04-参考链接" class="headerlink" title="0x04:参考链接"></a>0x04:参考链接</h2><ol>
+<li><a href="https://www.jianshu.com/p/a0cf03605c42" target="_blank" rel="noopener">https://www.jianshu.com/p/a0cf03605c42</a></li>
+<li><a href="https://blog.csdn.net/whatday/article/details/86770609" target="_blank" rel="noopener">https://blog.csdn.net/whatday/article/details/86770609</a></li>
+<li><a href="https://docs.docker.com/get-docker/[](https://docs.docker.com/get-docker/)" target="_blank" rel="noopener">https://docs.docker.com/get-docker/[](https://docs.docker.com/get-docker/)</a></li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">主页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/tools/">工具</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-安装环境"><span class="toc-number">1.</span> <span class="toc-text">0x00:安装环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-安装过程"><span class="toc-number">2.</span> <span class="toc-text">0x01:安装过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-安装过程出现的一些故障"><span class="toc-number">3.</span> <span class="toc-text">0x02:安装过程出现的一些故障</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-更换docker源"><span class="toc-number">4.</span> <span class="toc-text">0x03:更换docker源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-参考链接"><span class="toc-number">5.</span> <span class="toc-text">0x04:参考链接</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&text=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&is_video=false&description=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=docker使用记录&body=Check out this article: http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&title=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&name=docker使用记录&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/20/docker%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/&t=docker使用记录" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2020
+    bai191
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">主页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/tools/">工具</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
