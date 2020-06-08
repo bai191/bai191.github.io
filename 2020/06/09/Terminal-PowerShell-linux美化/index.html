@@ -13,6 +13,8 @@
 <meta property="og:site_name" content="bai191">
 <meta property="og:description" content="0x00:前言一直在用vm来运行linux，但是听说windows有linux子系统了，所以想尝试一下，并且对powershell和linux子系统进行美化 0x01:美化PowerShell首先先下载Windows Terminal这个可以再windows商店下载，也可以在github上下载 安装后用系统管理员权限打开 安装posh-git和oh-my-poshposh-git补全git命令。o">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/06/09/Terminal-PowerShell-linux%E7%BE%8E%E5%8C%96/1.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/09/Terminal-PowerShell-linux%E7%BE%8E%E5%8C%96/2.png">
 <meta property="article:published_time" content="2020-06-08T17:46:58.000Z">
 <meta property="article:modified_time" content="2020-06-08T17:46:58.000Z">
 <meta property="article:author" content="bai191">
@@ -20,6 +22,7 @@
 <meta property="article:tag" content="PowerShell">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/09/Terminal-PowerShell-linux%E7%BE%8E%E5%8C%96/1.png">
     
     
         
@@ -215,6 +218,11 @@
 <h3 id="自动跳转插件-autojump"><a href="#自动跳转插件-autojump" class="headerlink" title="自动跳转插件 autojump"></a>自动跳转插件 autojump</h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clone 到本地</span></span><br><span class="line">git <span class="built_in">clone</span> git://github.com/joelthelion/autojump.git</span><br><span class="line"><span class="comment"># 进入clone目录，接着执行安装文件</span></span><br><span class="line"><span class="built_in">cd</span> autojump</span><br><span class="line">./install.py</span><br><span class="line"><span class="comment"># 接着根据安装完成后的提示，在~/.bashrc最后添加下面语句：</span></span><br><span class="line">vim ~/.bashrc    </span><br><span class="line">[[ -s /home/yourname/.autojump/etc/profile.d/autojump.sh ]] &amp;&amp; <span class="built_in">source</span> /home/yourname/.autojump/etc/profile.d/autojump.sh</span><br></pre></td></tr></table></figure>
 
 <h3 id="安装完后启用插件"><a href="#安装完后启用插件" class="headerlink" title="安装完后启用插件"></a>安装完后启用插件</h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑~/.zshrc   </span></span><br><span class="line">vim ~/.zshrc    </span><br><span class="line"><span class="comment"># 在plugins后括号里添加安装的插件名字</span></span><br><span class="line">plugins=( git </span><br><span class="line">            autojump </span><br><span class="line">            zsh-autosuggestions </span><br><span class="line">            zsh-syntax-highlighting</span><br><span class="line">            )</span><br><span class="line"><span class="comment"># 最后刷新</span></span><br><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<p>最后放下配置好的样子：</p>
+<img src="/2020/06/09/Terminal-PowerShell-linux%E7%BE%8E%E5%8C%96/1.png" class="" title="图片">
+
+<img src="/2020/06/09/Terminal-PowerShell-linux%E7%BE%8E%E5%8C%96/2.png" class="" title="图片">
 
 <h2 id="0x04-参考文档"><a href="#0x04-参考文档" class="headerlink" title="0x04:参考文档"></a>0x04:参考文档</h2><ol>
 <li><a href="https://github.com/microsoft/terminal" target="_blank" rel="noopener">windows terminal</a></li>
